@@ -3,6 +3,8 @@ package com.stas1270.githubapi.ui.repolist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.stas1270.githubapi.R
 import com.stas1270.githubapi.databinding.RepoItemBinding
 import com.stas1270.githubapi.ui.base.BaseDiffAdapter
 import com.stas1270.githubapi.ui.model.RepoModel
@@ -26,10 +28,19 @@ class RepoListAdapter(
 
     override fun onBindViewHolder(holder: RepoItemHolder, position: Int) {
         val repoModel = items[position]
-        with(holder) {
-            binding.titleHeader.text = repoModel.header
-            binding.textHeader.text = repoModel.text
-            binding.root.setOnClickListener { onRepoModelClick(repoModel) }
+        val checkOwner = "Check more from ${repoModel.ownerLogin} by ${repoModel.ownerUrl}"
+        val language = "Language: ${repoModel.language ?: "Not specified"}"
+        with(holder.binding) {
+            repoName.text = repoModel.name
+            repoFullName.text = repoModel.fullName
+            repoUrl.text = repoModel.url
+            repoLanguage.text = language
+            ownerUrl.text = checkOwner
+            avatar.load(repoModel.ownerAvatarUrl) {
+//                placeholder(R.drawable.loading_animation)
+//                error(R.drawable.ic_broken_image)
+            }
+            root.setOnClickListener { onRepoModelClick(repoModel) }
         }
     }
 

@@ -21,11 +21,20 @@ class RetrofitGitHubDataSource(private val api: GitHubApi) : GitHubDataSource {
     override suspend fun getRepos(search: String): List<RepoModel> {
         return api.getRepos(search, 100).items
             .map {
-                RepoModel(
-                    id = it.id,
-                    text = it.name,
-                    header = it.owner.author
-                )
+                it.toRepoModel()
             }
     }
+}
+
+fun RepoItem.toRepoModel(): RepoModel {
+    return RepoModel(
+        id = id,
+        name = name,
+        fullName = fullName,
+        url = url,
+        language = language,
+        ownerLogin = owner.login,
+        ownerUrl = owner.url,
+        ownerAvatarUrl = owner.avatarUrl
+    )
 }

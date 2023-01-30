@@ -11,4 +11,5 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="search_repositories_by_name">search repositories by name</string>
     <string name="android">Android</string>
+    <string name="toast_error">Something goes wrong</string>
 </resources>

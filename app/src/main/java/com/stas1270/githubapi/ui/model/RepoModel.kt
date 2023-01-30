@@ -1,7 +1,12 @@
 package com.stas1270.githubapi.ui.model
 
 data class RepoModel(
-    val id: Int = -1,
-    var header: String? = null,
-    var text: String? = null
+    val id: Int,
+    val name: String,
+    val fullName: String,
+    val url: String,
+    val language: String? = null,
+    val ownerLogin: String,
+    val ownerAvatarUrl: String,
+    val ownerUrl: String,
 )

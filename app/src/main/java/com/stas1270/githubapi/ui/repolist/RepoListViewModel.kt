@@ -1,5 +1,7 @@
 package com.stas1270.githubapi.ui.repolist
 
+import com.stas1270.githubapi.data.local.model.Success
+import com.stas1270.githubapi.data.local.model.Error as Error
 import com.stas1270.githubapi.data.reposiory.ReposRepository
 import com.stas1270.githubapi.ui.base.BaseViewModel
 import com.stas1270.githubapi.ui.model.RepoModel
@@ -27,12 +29,16 @@ class RepoListViewModel @Inject constructor(
             val result = reposRepository.getRepos(searchQuery)
             _viewStateIsLoading.value = false
             _viewState.update {
-                it.copy(list = result)
+                it.copy(
+                    list = result.data,
+                    isSuccess = result.status == Success
+                )
             }
         }
     }
 }
 
 data class MainViewState(
-    val list: List<RepoModel> = emptyList()
+    val list: List<RepoModel> = emptyList(),
+    val isSuccess: Boolean = true
 )

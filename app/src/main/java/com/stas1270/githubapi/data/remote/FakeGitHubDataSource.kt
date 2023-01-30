@@ -6,6 +6,19 @@ import com.stas1270.githubapi.ui.model.RepoModel
 class FakeGitHubDataSource : GitHubDataSource {
 
     override suspend fun getRepos(search: String): List<RepoModel> {
-        return listOf(RepoModel(text = "Not yet implemented"))
+        return listOf(getFakeRepoModel())
     }
+}
+
+fun getFakeRepoModel(): RepoModel {
+    return RepoModel(
+        id = 123321,
+        name = "fake name",
+        fullName = "fullName",
+        url = "url.bad",
+        language = "Kotlin",
+        ownerUrl = "owner.url.bad",
+        ownerAvatarUrl = "owner.avatar.url.bad",
+        ownerLogin = "owner login"
+    )
 }
