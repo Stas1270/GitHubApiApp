@@ -11,4 +11,11 @@
     <string name="android">Android</string>
     <string name="toast_error">Something goes wrong</string>
     <string name="who_knows">Who knows</string>
+    <string name="created_at">"Created at: %s"</string>
+    <string name="created_by">"Created by:\n%s"</string>
+    <string name="updated_at">"Updated at: %s"</string>
+    <string name="see_more_at">"Updated at: %s"</string>
+    <string name="stars">"Stars: %d"</string>
+    <string name="avatar">Avatar</string>
+
 </resources>

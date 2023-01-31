@@ -64,15 +64,15 @@ class RepoDetailsFragment : Fragment() {
         with(binding) {
             avatar.load(model.ownerAvatarUrl)
             repoName.text = model.name
-            val createdAt = "Created at: ${convertToUiDate(model.createdAt)}"
+            val createdAt = getString(R.string.created_at, convertToUiDate(model.createdAt))
             repoCreatedAt.text = createdAt
-            val countStars = "Stars: ${model.stargazersCount}"
+            val countStars = getString(R.string.stars, model.stargazersCount)
             repoStargazersCount.text = countStars
-            val updatedAt = "Updated at: ${convertToUiDate(model.updatedAt)}"
+            val updatedAt = getString(R.string.updated_at, convertToUiDate(model.updatedAt))
             repoUpdatedAt.text = updatedAt
-            val url = "See more at: ${model.htmlUrl}"
+            val url = getString(R.string.see_more_at, model.htmlUrl)
             repoUrl.text = url
-            val createdBy = "Created by:\n${model.ownerLogin}"
+            val createdBy = getString(R.string.created_by, model.ownerLogin)
             ownerLogin.text = createdBy
         }
     }

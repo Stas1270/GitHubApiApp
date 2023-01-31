@@ -27,18 +27,6 @@
             app:layout_constraintTop_toTopOf="@+id/avatar"
             tools:text="repo_name" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/repo_full_name"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginEnd="8dp"-->
-        <!--            android:fontFamily="sans-serif"-->
-        <!--            android:textSize="13sp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/vertical_avatar_delimiter"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/repo_name"-->
-        <!--            tools:text="full name" />-->
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vertical_avatar_delimiter"
             android:layout_width="wrap_content"
@@ -72,24 +60,12 @@
             app:layout_constraintTop_toBottomOf="@id/repo_name"
             tools:text="repo_language" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/owner_url"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="8dp"-->
-        <!--            android:autoLink="web"-->
-        <!--            android:fontFamily="sans-serif"-->
-        <!--            android:textSize="13sp"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/repo_language"-->
-        <!--            tools:text="owner_url" />-->
-
         <ImageView
             android:id="@+id/avatar"
             android:layout_width="70dp"
             android:layout_height="70dp"
             app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/avatar"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
