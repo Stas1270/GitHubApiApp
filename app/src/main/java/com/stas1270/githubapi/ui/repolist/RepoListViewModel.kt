@@ -1,7 +1,6 @@
 package com.stas1270.githubapi.ui.repolist
 
 import com.stas1270.githubapi.data.local.model.Success
-import com.stas1270.githubapi.data.local.model.Error as Error
 import com.stas1270.githubapi.data.reposiory.ReposRepository
 import com.stas1270.githubapi.ui.base.BaseViewModel
 import com.stas1270.githubapi.ui.model.RepoModel

@@ -6,7 +6,6 @@ import com.stas1270.githubapi.data.remote.model.RepoItem
 import com.stas1270.githubapi.data.remote.model.ReposResponse
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import com.stas1270.githubapi.ui.model.RepoModel
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

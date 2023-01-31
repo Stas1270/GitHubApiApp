@@ -2,16 +2,15 @@ package com.stas1270.githubapi.data.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.stas1270.githubapi.data.remote.BASE_URL
 import com.stas1270.githubapi.data.GitHubDataSource
 import com.stas1270.githubapi.data.di.qualifiers.FakeRemoteDataSource
 import com.stas1270.githubapi.data.di.qualifiers.RemoteDataSource
+import com.stas1270.githubapi.data.remote.BASE_URL
 import com.stas1270.githubapi.data.remote.FakeGitHubDataSource
 import com.stas1270.githubapi.data.remote.GitHubApi
 import com.stas1270.githubapi.data.remote.RetrofitGitHubDataSource
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter

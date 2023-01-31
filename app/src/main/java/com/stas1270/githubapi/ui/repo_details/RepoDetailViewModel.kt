@@ -1,14 +1,13 @@
 package com.stas1270.githubapi.ui.repo_details
 
-import com.stas1270.githubapi.data.local.model.Success
 import com.stas1270.githubapi.data.local.model.Error
+import com.stas1270.githubapi.data.local.model.Success
 import com.stas1270.githubapi.data.reposiory.ReposRepository
 import com.stas1270.githubapi.ui.base.BaseViewModel
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
