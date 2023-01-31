@@ -74,6 +74,8 @@ class RepoDetailsFragment : Fragment() {
             repoUrl.text = url
             val createdBy = getString(R.string.created_by, model.ownerLogin)
             ownerLogin.text = createdBy
+            val description = getString(R.string.description, model.description)
+            repoDescription.text = description
         }
     }
 

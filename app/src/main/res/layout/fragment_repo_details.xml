@@ -71,6 +71,17 @@
         tools:text="repo_url" />
 
     <TextView
+        android:id="@+id/repo_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:autoLink="web"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/repo_url"
+        tools:text="repo_description" />
+
+    <TextView
         android:id="@+id/owner_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

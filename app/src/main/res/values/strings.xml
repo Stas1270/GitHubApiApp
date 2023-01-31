@@ -14,8 +14,9 @@
     <string name="created_at">"Created at: %s"</string>
     <string name="created_by">"Created by:\n%s"</string>
     <string name="updated_at">"Updated at: %s"</string>
-    <string name="see_more_at">"Updated at: %s"</string>
+    <string name="see_more_at">"See more at: %s"</string>
     <string name="stars">"Stars: %d"</string>
+    <string name="description">"Description: %s"</string>
     <string name="avatar">Avatar</string>
 
 </resources>
