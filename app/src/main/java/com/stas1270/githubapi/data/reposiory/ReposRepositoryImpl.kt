@@ -4,6 +4,7 @@ import com.stas1270.githubapi.data.GitHubDataSource
 import com.stas1270.githubapi.data.di.qualifiers.RemoteDataSource
 import com.stas1270.githubapi.data.local.model.RepositoryData
 import com.stas1270.githubapi.data.local.model.Success
+import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import com.stas1270.githubapi.data.local.model.Error as Error
 import com.stas1270.githubapi.ui.model.RepoModel
 import java.net.SocketTimeoutException
@@ -21,6 +22,18 @@ class ReposRepositoryImpl @Inject constructor(
             when (ex) {
                 is SocketTimeoutException,
                 is UnknownHostException -> RepositoryData(emptyList(), Error)
+                else -> throw ex
+            }
+        }
+    }
+
+    override suspend fun getRepositoryDetails(id: Int): RepositoryData<RepoDetailedModel?> {
+        return try {
+            RepositoryData(repo.getRepositoryDetails(id), Success)
+        } catch (ex: Exception) {
+            when (ex) {
+                is SocketTimeoutException,
+                is UnknownHostException -> RepositoryData(null, Error)
                 else -> throw ex
             }
         }

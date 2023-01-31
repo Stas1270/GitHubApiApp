@@ -1,5 +1,6 @@
 package com.stas1270.githubapi.data.di
 
+import com.stas1270.githubapi.ui.repo_details.RepoDetailsFragment
 import com.stas1270.githubapi.ui.repolist.RepoListFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -9,5 +10,5 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(fragment: RepoListFragment)
-
+    fun inject(fragment: RepoDetailsFragment)
 }

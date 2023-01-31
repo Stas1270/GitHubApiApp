@@ -10,8 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="8dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/repo_name"
@@ -27,17 +27,17 @@
             app:layout_constraintTop_toTopOf="@+id/avatar"
             tools:text="repo_name" />
 
-        <TextView
-            android:id="@+id/repo_full_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="sans-serif"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/vertical_avatar_delimiter"
-            app:layout_constraintTop_toBottomOf="@id/repo_name"
-            tools:text="full name" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/repo_full_name"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            android:fontFamily="sans-serif"-->
+        <!--            android:textSize="13sp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/vertical_avatar_delimiter"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/repo_name"-->
+        <!--            tools:text="full name" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/vertical_avatar_delimiter"
@@ -50,38 +50,40 @@
             android:id="@+id/repo_url"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:autoLink="web"
             android:fontFamily="sans-serif"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/vertical_avatar_delimiter"
-            app:layout_constraintTop_toBottomOf="@id/repo_full_name"
+            app:layout_constraintTop_toBottomOf="@id/repo_language"
             tools:text="url" />
 
         <TextView
             android:id="@+id/repo_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="sans-serif"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@+id/vertical_avatar_delimiter"
-            app:layout_constraintTop_toBottomOf="@id/repo_url"
+            app:layout_constraintTop_toBottomOf="@id/repo_name"
             tools:text="repo_language" />
 
-        <TextView
-            android:id="@+id/owner_url"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:autoLink="web"
-            android:fontFamily="sans-serif"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/repo_language"
-            tools:text="owner_url" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/owner_url"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:autoLink="web"-->
+        <!--            android:fontFamily="sans-serif"-->
+        <!--            android:textSize="13sp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/repo_language"-->
+        <!--            tools:text="owner_url" />-->
 
         <ImageView
             android:id="@+id/avatar"

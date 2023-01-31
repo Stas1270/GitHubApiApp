@@ -32,10 +32,10 @@ class RepoListAdapter(
         val language = "Language: ${repoModel.language ?: "Not specified"}"
         with(holder.binding) {
             repoName.text = repoModel.name
-            repoFullName.text = repoModel.fullName
+//            repoFullName.text = repoModel.fullName
             repoUrl.text = repoModel.url
             repoLanguage.text = language
-            ownerUrl.text = checkOwner
+//            ownerUrl.text = checkOwner
             avatar.load(repoModel.ownerAvatarUrl) {
 //                placeholder(R.drawable.loading_animation)
 //                error(R.drawable.ic_broken_image)
