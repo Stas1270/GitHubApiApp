@@ -36,7 +36,8 @@ abstract class RepositoryModule {
         fun provideLocalDataSource(db: AppDatabase): LocalDataSource {
             return LocalGitHubDataSource(
                 db.queryRepoDao(),
-                db.repoModelDao()
+                db.repoModelDao(),
+                db.repoDetailedModelDao()
             )
         }
 

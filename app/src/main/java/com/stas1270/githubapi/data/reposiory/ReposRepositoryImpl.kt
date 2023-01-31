@@ -22,13 +22,13 @@ class ReposRepositoryImpl @Inject constructor(
     @LocalDataSourceQualifier val local: LocalDataSource,
 ) : ReposRepository {
 
-    override suspend fun getRepos(search: String): Flow<ResponseData<List<RepoModel>>> {
+    override suspend fun getRepos(searchQuery: String): Flow<ResponseData<List<RepoModel>>> {
         return flow {
-            val localResult = local.getRepos(search)
+            val localResult = local.getRepos(searchQuery)
             if (localResult.isEmpty()) {
-                remote.getRepos(search)
+                remote.getRepos(searchQuery)
                     .suspendOnSuccess {
-                        local.insertRepos(search, data)
+                        local.insertRepos(searchQuery, data)
                         emit(ResponseData(data, Success))
                     }
                     .suspendOnException {
@@ -44,14 +44,24 @@ class ReposRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRepositoryDetails(id: Int): ResponseData<RepoDetailedModel?> {
-        return try {
-            ResponseData(remote.getRepositoryDetails(id), Success)
-        } catch (ex: Exception) {
-            when (ex) {
-                is SocketTimeoutException,
-                is UnknownHostException -> ResponseData(null, Error)
-                else -> throw ex
+    override suspend fun getRepositoryDetails(id: Int): Flow<ResponseData<RepoDetailedModel?>> {
+        return flow {
+            val localResult = local.getRepositoryDetails(id)
+            if (localResult == null) {
+                remote.getRepositoryDetails(id)
+                    .suspendOnSuccess {
+                        local.insertRepositoryDetails(data)
+                        emit(ResponseData(data, Success))
+                    }
+                    .suspendOnException {
+                        when (exception) {
+                            is SocketTimeoutException,
+                            is UnknownHostException -> emit(ResponseData(null, Error))
+                            else -> throw exception
+                        }
+                    }
+            } else {
+                emit(ResponseData(localResult, Success))
             }
         }
     }

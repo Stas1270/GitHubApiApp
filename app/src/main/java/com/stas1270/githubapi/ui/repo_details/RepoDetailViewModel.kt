@@ -8,6 +8,7 @@ import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,11 +27,13 @@ class RepoDetailViewModel @Inject constructor(
 
     fun getRepoDetails(id: Int) {
         launch(Dispatchers.IO) {
-            val result = reposRepository.getRepositoryDetails(id)
-            when (result.status) {
-                is Success -> _viewState.value = result.data
-                is Error -> _error.value = true
-            }
+            reposRepository.getRepositoryDetails(id)
+                .collectLatest {
+                    when (it.status) {
+                        is Success -> _viewState.value = it.data
+                        is Error -> _error.value = true
+                    }
+                }
         }
     }
 }

@@ -3,6 +3,7 @@ package com.stas1270.githubapi.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.stas1270.githubapi.data.local.dao.QueryRepoDao
+import com.stas1270.githubapi.data.local.dao.RepoDetailedModelDao
 import com.stas1270.githubapi.data.local.dao.RepoModelDao
 import com.stas1270.githubapi.data.local.entity.QueryEntity
 import com.stas1270.githubapi.data.local.entity.QueryRepoEntity
@@ -22,4 +23,5 @@ import com.stas1270.githubapi.data.local.entity.RepoModelEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun repoModelDao(): RepoModelDao
     abstract fun queryRepoDao(): QueryRepoDao
+    abstract fun repoDetailedModelDao(): RepoDetailedModelDao
 }

@@ -13,9 +13,14 @@ class FakeLocalDataSource @Inject constructor() : LocalDataSource {
     }
 
     override suspend fun insertRepos(search: String, list: List<RepoModel>) {
+        //no op
     }
 
-    override suspend fun getRepositoryDetails(id: Int): RepoDetailedModel {
+    override suspend fun getRepositoryDetails(id: Int): RepoDetailedModel? {
         return getFakeRepoDetailedModel()
+    }
+
+    override suspend fun insertRepositoryDetails(detailedModel: RepoDetailedModel) {
+        //no op
     }
 }

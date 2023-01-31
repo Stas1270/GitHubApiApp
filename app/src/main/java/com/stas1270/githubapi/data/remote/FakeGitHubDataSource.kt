@@ -12,8 +12,8 @@ class FakeGitHubDataSource : GitHubDataSource {
         return ApiResponse.Success(Response.success(listOf(getFakeRepoModel())))
     }
 
-    override suspend fun getRepositoryDetails(id: Int): RepoDetailedModel {
-        return getFakeRepoDetailedModel()
+    override suspend fun getRepositoryDetails(id: Int): ApiResponse<RepoDetailedModel> {
+        return ApiResponse.Success(Response.success(getFakeRepoDetailedModel()))
     }
 }
 

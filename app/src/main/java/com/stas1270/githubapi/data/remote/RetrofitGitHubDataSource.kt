@@ -23,7 +23,7 @@ interface GitHubApi {
     @GET("repositories/{repo_id}")
     suspend fun getRepositoryDetails(
         @Path("repo_id") id: Int,
-    ): RepoDetailsResult
+    ): ApiResponse<RepoDetailsResult>
 
 }
 
@@ -38,8 +38,11 @@ class RetrofitGitHubDataSource(private val api: GitHubApi) : GitHubDataSource {
             }
     }
 
-    override suspend fun getRepositoryDetails(id: Int): RepoDetailedModel {
-        return api.getRepositoryDetails(id).toRepoDetailedModel()
+    override suspend fun getRepositoryDetails(id: Int): ApiResponse<RepoDetailedModel> {
+        return api.getRepositoryDetails(id)
+            .mapSuccess {
+                toRepoDetailedModel()
+            }
     }
 }
 
