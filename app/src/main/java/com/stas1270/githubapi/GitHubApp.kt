@@ -1,6 +1,7 @@
 package com.stas1270.githubapi
 
 import android.app.Application
+import com.stas1270.githubapi.data.di.AppModule
 import com.stas1270.githubapi.data.di.ApplicationComponent
 import com.stas1270.githubapi.data.di.DaggerApplicationComponent
 
@@ -11,6 +12,9 @@ class GitHubApp : Application() {
     }
 
     private fun initializeComponent(): ApplicationComponent {
-        return  DaggerApplicationComponent.create()
+        return DaggerApplicationComponent
+            .builder()
+            .appModule(AppModule(this))
+            .build()
     }
 }

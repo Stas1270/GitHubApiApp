@@ -4,12 +4,16 @@ import javax.inject.Qualifier
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class RemoteDataSource
+annotation class RemoteDataSourceQualifier
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class LocalDataSource
+annotation class LocalDataSourceQualifier
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-annotation class FakeRemoteDataSource
+annotation class FakeLocalDataSourceQualifier
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class FakeRemoteDataSourceQualifier

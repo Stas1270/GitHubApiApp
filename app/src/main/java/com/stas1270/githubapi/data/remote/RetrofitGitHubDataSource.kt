@@ -1,5 +1,7 @@
 package com.stas1270.githubapi.data.remote
 
+import com.skydoves.sandwich.ApiResponse
+import com.skydoves.sandwich.mapSuccess
 import com.stas1270.githubapi.data.GitHubDataSource
 import com.stas1270.githubapi.data.remote.model.RepoDetailsResult
 import com.stas1270.githubapi.data.remote.model.RepoItem
@@ -16,7 +18,7 @@ interface GitHubApi {
     suspend fun getRepos(
         @Query("q") query: String,
         @Query("per_page") perPage: Int,
-    ): ReposResponse
+    ): ApiResponse<ReposResponse>
 
     @GET("repositories/{repo_id}")
     suspend fun getRepositoryDetails(
@@ -27,10 +29,12 @@ interface GitHubApi {
 
 class RetrofitGitHubDataSource(private val api: GitHubApi) : GitHubDataSource {
 
-    override suspend fun getRepos(search: String): List<RepoModel> {
-        return api.getRepos(search, 100).items
-            .map {
-                it.toRepoModel()
+    override suspend fun getRepos(search: String): ApiResponse<List<RepoModel>> {
+        return api.getRepos(search, 100)
+            .mapSuccess {
+                items.map {
+                    it.toRepoModel()
+                }
             }
     }
 
