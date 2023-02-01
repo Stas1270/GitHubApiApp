@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.stas1270.githubapi.GitHubApp
-import com.stas1270.githubapi.R
 import com.stas1270.githubapi.databinding.FragmentRepoListBinding
-import com.stas1270.githubapi.ui.extensions.hideSoftKeyboard
-import com.stas1270.githubapi.ui.extensions.repeatOnViewLifecycle
+import com.stas1270.githubapi.ui.base.extensions.hideSoftKeyboard
+import com.stas1270.githubapi.ui.base.extensions.repeatOnViewLifecycle
+import com.stas1270.githubapi.ui.base.extensions.showErrorToast
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
@@ -61,15 +60,12 @@ class RepoListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         repeatOnViewLifecycle {
             viewModel.viewState.collectLatest {
-                if (it.isSuccess) {
-                    adapter.update(it.list)
-                } else {
-                    Toast.makeText(
-                        this@RepoListFragment.requireContext(),
-                        getString(R.string.toast_error),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+                adapter.update(it.list)
+            }
+        }
+        repeatOnViewLifecycle {
+            viewModel.error.collectLatest {
+                if (it) showErrorToast()
             }
         }
         repeatOnViewLifecycle {

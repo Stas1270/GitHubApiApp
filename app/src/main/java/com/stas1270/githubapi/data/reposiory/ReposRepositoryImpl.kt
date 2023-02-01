@@ -1,20 +1,15 @@
 package com.stas1270.githubapi.data.reposiory
 
-import com.skydoves.sandwich.suspendOnException
-import com.skydoves.sandwich.suspendOnSuccess
-import com.stas1270.githubapi.data.GitHubDataSource
 import com.stas1270.githubapi.data.di.qualifiers.LocalDataSourceQualifier
 import com.stas1270.githubapi.data.di.qualifiers.RemoteDataSourceQualifier
 import com.stas1270.githubapi.data.local.LocalDataSource
-import com.stas1270.githubapi.data.local.model.Error
 import com.stas1270.githubapi.data.local.model.ResponseData
-import com.stas1270.githubapi.data.local.model.Success
+import com.stas1270.githubapi.data.local.model.suspendOnSuccess
+import com.stas1270.githubapi.data.remote.GitHubDataSource
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import com.stas1270.githubapi.ui.model.RepoModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ReposRepositoryImpl @Inject constructor(
@@ -29,17 +24,10 @@ class ReposRepositoryImpl @Inject constructor(
                 remote.getRepos(searchQuery)
                     .suspendOnSuccess {
                         local.insertRepos(searchQuery, data)
-                        emit(ResponseData(data, Success))
-                    }
-                    .suspendOnException {
-                        when (exception) {
-                            is SocketTimeoutException,
-                            is UnknownHostException -> emit(ResponseData(emptyList(), Error))
-                            else -> throw exception
-                        }
+                        emit(this)
                     }
             } else {
-                emit(ResponseData(localResult, Success))
+                emit(ResponseData.Success(localResult))
             }
         }
     }
@@ -50,18 +38,13 @@ class ReposRepositoryImpl @Inject constructor(
             if (localResult == null) {
                 remote.getRepositoryDetails(id)
                     .suspendOnSuccess {
-                        local.insertRepositoryDetails(data)
-                        emit(ResponseData(data, Success))
-                    }
-                    .suspendOnException {
-                        when (exception) {
-                            is SocketTimeoutException,
-                            is UnknownHostException -> emit(ResponseData(null, Error))
-                            else -> throw exception
+                        data?.let {
+                            local.insertRepositoryDetails(data)
+                            emit(this)
                         }
                     }
             } else {
-                emit(ResponseData(localResult, Success))
+                emit(ResponseData.Success(localResult))
             }
         }
     }

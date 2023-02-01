@@ -1,6 +1,6 @@
 package com.stas1270.githubapi.ui.repolist
 
-import com.stas1270.githubapi.data.local.model.Success
+import com.stas1270.githubapi.data.local.model.ResponseData
 import com.stas1270.githubapi.data.reposiory.ReposRepository
 import com.stas1270.githubapi.ui.base.BaseViewModel
 import com.stas1270.githubapi.ui.model.RepoModel
@@ -20,6 +20,10 @@ class RepoListViewModel @Inject constructor(
     val viewState
         get() = _viewState.asStateFlow()
 
+    private val _error = MutableStateFlow(false)
+    val error
+        get() = _error.asStateFlow()
+
     private val _viewStateIsLoading = MutableStateFlow(false)
     val viewStateIsLoading
         get() = _viewStateIsLoading.asStateFlow()
@@ -27,14 +31,15 @@ class RepoListViewModel @Inject constructor(
     fun search(searchQuery: String) {
         _viewStateIsLoading.value = true
         launch(Dispatchers.IO) {
-            reposRepository.getRepos(searchQuery)
-                .collectLatest { result ->
+            reposRepository.getRepos(searchQuery).collectLatest { result ->
                     _viewStateIsLoading.value = false
-                    _viewState.update {
-                        it.copy(
-                            list = result.data,
-                            isSuccess = result.status == Success
-                        )
+                    when (result) {
+                        is ResponseData.Success -> {
+                            _viewState.update {
+                                it.copy(list = result.data)
+                            }
+                        }
+                        is ResponseData.Error -> _error.value = true
                     }
                 }
         }
@@ -42,6 +47,5 @@ class RepoListViewModel @Inject constructor(
 }
 
 data class MainViewState(
-    val list: List<RepoModel> = emptyList(),
-    val isSuccess: Boolean = true
+    val list: List<RepoModel> = emptyList()
 )

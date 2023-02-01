@@ -1,10 +1,24 @@
 package com.stas1270.githubapi.data.local.model
 
-class ResponseData<T>(
-    val data: T,
-    val status: Status
-)
+sealed class ResponseData<out T> {
+    data class Success<T>(val data: T) : ResponseData<T>()
+    data class Error<T>(val exception: Throwable) : ResponseData<T>()
+}
 
-sealed class Status
-object Success : Status()
-object Error : Status()
+suspend inline fun <T> ResponseData<T>.suspendOnSuccess(
+    crossinline onResult: suspend ResponseData.Success<T>.() -> Unit
+): ResponseData<T> {
+    if (this is ResponseData.Success) {
+        onResult(this)
+    }
+    return this
+}
+
+suspend inline fun <T> ResponseData<T>.suspendOnException(
+    crossinline onResult: suspend ResponseData<T>.() -> Unit
+): ResponseData<T> {
+    if (this is ResponseData.Error) {
+        onResult(this)
+    }
+    return this
+}

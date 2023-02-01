@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.stas1270.githubapi.GitHubApp
 import com.stas1270.githubapi.R
 import com.stas1270.githubapi.databinding.FragmentRepoDetailsBinding
-import com.stas1270.githubapi.ui.extensions.repeatOnViewLifecycle
+import com.stas1270.githubapi.ui.base.extensions.repeatOnViewLifecycle
+import com.stas1270.githubapi.ui.base.extensions.showErrorToast
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
+import com.stas1270.githubapi.ui.utils.convertToUiDate
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
@@ -51,24 +52,30 @@ class RepoDetailsFragment : Fragment() {
         }
         repeatOnViewLifecycle {
             viewModel.error.collectLatest {
-                if (it) showError()
+                if (it) showErrorToast()
             }
         }
-    }
-
-    private fun showError() {
-        Toast.makeText(this.requireContext(), R.string.toast_error, Toast.LENGTH_LONG).show()
     }
 
     private fun showDetails(model: RepoDetailedModel) {
         with(binding) {
             avatar.load(model.ownerAvatarUrl)
             repoName.text = model.name
-            val createdAt = getString(R.string.created_at, convertToUiDate(model.createdAt))
+            val createdAt = getString(
+                R.string.created_at, convertToUiDate(
+                    requireContext(),
+                    model.createdAt
+                )
+            )
             repoCreatedAt.text = createdAt
             val countStars = getString(R.string.stars, model.stargazersCount)
             repoStargazersCount.text = countStars
-            val updatedAt = getString(R.string.updated_at, convertToUiDate(model.updatedAt))
+            val updatedAt = getString(
+                R.string.updated_at, convertToUiDate(
+                    requireContext(),
+                    model.updatedAt
+                )
+            )
             repoUpdatedAt.text = updatedAt
             val url = getString(R.string.see_more_at, model.htmlUrl)
             repoUrl.text = url
@@ -78,11 +85,6 @@ class RepoDetailsFragment : Fragment() {
             repoDescription.text = description
         }
     }
-
-    private fun convertToUiDate(string: String) = string.substringBefore(
-        "T",
-        getString(R.string.who_knows)
-    )
 
     private fun fetchRepoDetails() {
         val id = navigationArgs.repoId

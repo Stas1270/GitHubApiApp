@@ -1,7 +1,6 @@
 package com.stas1270.githubapi.ui.repo_details
 
-import com.stas1270.githubapi.data.local.model.Error
-import com.stas1270.githubapi.data.local.model.Success
+import com.stas1270.githubapi.data.local.model.ResponseData
 import com.stas1270.githubapi.data.reposiory.ReposRepository
 import com.stas1270.githubapi.ui.base.BaseViewModel
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
@@ -29,9 +28,9 @@ class RepoDetailViewModel @Inject constructor(
         launch(Dispatchers.IO) {
             reposRepository.getRepositoryDetails(id)
                 .collectLatest {
-                    when (it.status) {
-                        is Success -> _viewState.value = it.data
-                        is Error -> _error.value = true
+                    when (it) {
+                        is ResponseData.Success -> _viewState.value = it.data
+                        is ResponseData.Error -> _error.value = true
                     }
                 }
         }
