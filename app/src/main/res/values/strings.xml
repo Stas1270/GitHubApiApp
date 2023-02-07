@@ -19,4 +19,31 @@
     <string name="description">"Description: %s"</string>
     <string name="avatar">Avatar</string>
 
+
+    <string name="button_main">Send</string>
+    <string name="editText_main">Enter Your Message Here</string>
+    <string name="text_header">Message Received</string>
+    <string name="button_second">Reply</string>
+    <string name="editText_second">Enter Your Reply Here</string>
+    <string name="text_header_reply">Reply Received</string>
+
+    <string name="show">Show</string>
+    <string name="hint_phonenumber">Enter a phone number</string>
+    <string name="phonenumber_label">Phone Number:</string>
+    <string name="nothing_entered">Nothing entered</string>
+
+    <string-array name="labels_array">
+        <item>Home</item>
+        <item>Work</item>
+        <item>Mobile</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name="team_1">Team 1</string>
+    <string name="team_2">Team 2</string>
+    <string name="initial_count">0</string>
+    <string name="minus_button_description">Minus Button</string>
+    <string name="plus_button_description">Plus Button</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="day_mode">Day Mode</string>
 </resources>
