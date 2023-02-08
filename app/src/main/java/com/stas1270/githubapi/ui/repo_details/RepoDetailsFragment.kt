@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.stas1270.githubapi.GitHubApp
 import com.stas1270.githubapi.R
 import com.stas1270.githubapi.databinding.FragmentRepoDetailsBinding
 import com.stas1270.githubapi.ui.base.extensions.repeatOnViewLifecycle
@@ -29,7 +30,7 @@ class RepoDetailsFragment : Fragment() {
     lateinit var viewModel: RepoDetailViewModel
 
     override fun onAttach(context: Context) {
-//        (context.applicationContext as GitHubApp).inject(this)
+        (context.applicationContext as GitHubApp).appComponent.inject(this)
         super.onAttach(context)
     }
 
