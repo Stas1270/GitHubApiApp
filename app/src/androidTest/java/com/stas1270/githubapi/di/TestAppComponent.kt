@@ -1,5 +1,6 @@
-package com.stas1270.githubapi
+package com.stas1270.githubapi.di
 
+import com.stas1270.githubapi.MainActivityTest
 import com.stas1270.githubapi.data.di.AppModule
 import com.stas1270.githubapi.data.di.ApplicationComponent
 import com.stas1270.githubapi.data.di.RepositoryModule
@@ -9,15 +10,13 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-//        AndroidInjectionModule::class,
-//        TestActivityBuildersModule::class,
-        com.stas1270.githubapi.di.FakeNetworkModule::class,
-        com.stas1270.githubapi.di.FakeLocalDataModule::class,
+        FakeNetworkModule::class,
+        FakeLocalDataModule::class,
         RepositoryModule::class,
         AppModule::class]
 )
 interface TestAppComponent: ApplicationComponent {
 
     fun inject(app: TestApplication)
-    fun inject(activity: EmptyMainActivity)
+    fun inject(mainActivityTest: MainActivityTest)
 }

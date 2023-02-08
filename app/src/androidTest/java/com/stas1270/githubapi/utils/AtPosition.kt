@@ -1,4 +1,4 @@
-package com.stas1270.githubapi
+package com.stas1270.githubapi.utils
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

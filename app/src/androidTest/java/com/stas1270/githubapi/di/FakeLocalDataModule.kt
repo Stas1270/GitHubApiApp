@@ -17,10 +17,4 @@ class FakeLocalDataModule {
     fun provideLocalDataSource(context: Context): LocalDataSource {
         return FakeLocalDataSource()
     }
-
-//    @Singleton
-//    @Provides
-//    override fun provideAppDatabase(context: Context): AppDatabase {
-//        return Mockito.mock(AppDatabase::class.java)
-//    }
 }

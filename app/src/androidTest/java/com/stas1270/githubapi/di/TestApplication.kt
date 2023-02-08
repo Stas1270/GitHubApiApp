@@ -1,8 +1,9 @@
-package com.stas1270.githubapi
+package com.stas1270.githubapi.di
 
+import com.stas1270.githubapi.DaggerTestAppComponent
+import com.stas1270.githubapi.GitHubApp
 import com.stas1270.githubapi.data.di.AppModule
 import com.stas1270.githubapi.data.di.ApplicationComponent
-
 
 class TestApplication : GitHubApp() {
 
@@ -10,9 +11,6 @@ class TestApplication : GitHubApp() {
         val component: TestAppComponent = DaggerTestAppComponent.builder()
             .appModule(AppModule(this))
             .build()
-
-//        component.inject(this)
-
         return component
     }
 }

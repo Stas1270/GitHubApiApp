@@ -18,9 +18,7 @@ open class LocalDataModule {
 
     @Provides
     @Singleton
-     fun provideLocalDataSource(context: Context): LocalDataSource {
-        val db = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-            .build()
+     fun provideLocalDataSource(db: AppDatabase): LocalDataSource {
         return LocalGitHubDataSource(
             db.queryRepoDao(),
             db.repoModelDao(),
@@ -28,8 +26,9 @@ open class LocalDataModule {
         )
     }
 
-//    @Singleton
-//    @Provides
-//    open fun provideAppDatabase(context: Context): AppDatabase =
-//
+    @Singleton
+    @Provides
+    open fun provideAppDatabase(context: Context): AppDatabase =
+        Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+            .build()
 }
