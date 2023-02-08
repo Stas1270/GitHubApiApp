@@ -15,8 +15,7 @@ import javax.inject.Singleton
         RepositoryModule::class,
         AppModule::class]
 )
-interface TestAppComponent: ApplicationComponent {
-
-    fun inject(app: TestApplication)
+interface TestAppComponent : ApplicationComponent {
     fun inject(mainActivityTest: MainActivityTest)
+
 }

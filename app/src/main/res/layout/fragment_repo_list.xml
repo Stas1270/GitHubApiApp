@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_repos"
-        tools:listitem="@layout/repo_item" />
+        tools:listitem="@layout/item_repo" />
 
     <EditText
         android:id="@+id/search_repos"

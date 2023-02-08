@@ -15,6 +15,19 @@ class FakeGitHubDataSource : GitHubDataSource {
     }
 }
 
+fun getFakeRepoModel(): RepoModel {
+    return RepoModel(
+        id = 123321,
+        name = "fake name",
+        fullName = "fullName",
+        url = "url.bad",
+        language = "Kotlin",
+        ownerUrl = "owner.url.bad",
+        ownerAvatarUrl = "owner.avatar.url.bad",
+        ownerLogin = "owner login"
+    )
+}
+
 fun generateRepoList(count: Int): List<RepoModel> {
     return (0..count)
 //        .asSequence()
@@ -23,8 +36,8 @@ fun generateRepoList(count: Int): List<RepoModel> {
                 id = it,
                 name = "fake name $it",
                 fullName = "fullName $it",
-                url = "url.bad",
-                language = "Kotlin",
+                url = "url.bad $it",
+                language = "Kotlin $it",
                 ownerUrl = "owner.url.bad",
                 ownerAvatarUrl = "owner.avatar.url.bad",
                 ownerLogin = "owner login"

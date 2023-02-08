@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.stas1270.githubapi.databinding.RepoItemBinding
+import com.stas1270.githubapi.databinding.ItemRepoBinding
 import com.stas1270.githubapi.ui.base.BaseDiffAdapter
 import com.stas1270.githubapi.ui.model.RepoModel
 
@@ -13,7 +13,7 @@ class RepoListAdapter(
 ) : BaseDiffAdapter<RepoModel, RepoListAdapter.RepoItemHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoItemHolder {
-        val binding = RepoItemBinding.inflate(
+        val binding = ItemRepoBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -37,7 +37,7 @@ class RepoListAdapter(
         }
     }
 
-    class RepoItemHolder(val binding: RepoItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class RepoItemHolder(val binding: ItemRepoBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
 

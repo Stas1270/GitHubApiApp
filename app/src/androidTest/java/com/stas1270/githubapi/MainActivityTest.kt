@@ -1,18 +1,23 @@
 package com.stas1270.githubapi
 
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.rule.ActivityTestRule
+import com.stas1270.githubapi.data.remote.generateRepoList
 import com.stas1270.githubapi.di.TestAppComponent
 import com.stas1270.githubapi.ui.MainActivity
+import com.stas1270.githubapi.utils.actionOnItemAtPosition
 import com.stas1270.githubapi.utils.atPosition
 import com.stas1270.githubapi.utils.scrollToPosition
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.Matchers
+import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -21,105 +26,91 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-//    private val server by lazy { MockWebServer() }
 
-    @get:Rule val activityRule = ActivityTestRule<MainActivity>(MainActivity::class.java, true, false)
+
+    private lateinit var scenario: ActivityScenario<MainActivity>
+
+    private val testComponent by lazy {
+        val instrument = InstrumentationRegistry.getInstrumentation()
+        val app = instrument.targetContext.applicationContext as GitHubApp
+        app.appComponent as TestAppComponent
+    }
 
     @Before
     fun setUp() {
-//        server.start(4000)
-//        URL.BASE_URL = server.url("/").toString()
+//        component.inject(this)
+        scenario = ActivityScenario.launch(MainActivity::class.java)
+    }
 
-        val instrument = InstrumentationRegistry.getInstrumentation()
-        val app = instrument.targetContext.applicationContext as GitHubApp
-        val component = app.appComponent as TestAppComponent
-        component.inject(this)
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 
     @Test
     fun launchActivity() {
-        activityRule.launchActivity(null)
+        onView(withId(R.id.list))
+            .perform(scrollToPosition(1))
+            .check(
+                matches(
+                    atPosition(
+                        1,
+                        Matchers.allOf(
+                            hasDescendant(
+                                Matchers.allOf(withId(R.id.repo_name), withText("fake name 1"))
+                            ),
+                            hasDescendant(
+                                Matchers.allOf(withId(R.id.repo_url), withText("url.bad 1"))
+                            )
+                        )
+                    )
+                )
+            )
+        onView(withId(R.id.progress_bar))
+            .check(matches(not(isDisplayed())))
+    }
+
+
+    @Test
+    fun click_on_item() {
+        onView(withId(R.id.list))
+            .perform(actionOnItemAtPosition(1, ViewActions.click()))
+    }
+
+//    private val fakeRepoModel = getFakeRepoModel()
+//    private val dataFlow = MutableStateFlow(ResponseData.Success(listOf(fakeRepoModel)))
+
+    @Test
+    fun search_new_data() {
+        val searchQuery = "Test Android UI"
+////        coEvery { repository.getRepos(searchQuery) } returns dataFlow
+//
+//        coEvery { testComponent.repoRepository().getRepos(searchQuery) } returns dataFlow
+//
+        val fakeRepoModel = generateRepoList(1)[0]
+        onView(withId(R.id.search_repos))
+            .perform(ViewActions.typeText(searchQuery))
+        onView(withId(R.id.btn_search))
+            .perform(ViewActions.click())
+        onView(withId(R.id.progress_bar))
+            .check(matches(isDisplayed()))
 
         onView(withId(R.id.list))
             .perform(scrollToPosition(0))
-            .check(matches(atPosition(0, withText("Cats: 1 … 2"))))
-
-//        onView(withId(R.id.btnLoad))
-//                .check(matches(withText("Load")))
-//                .check(matches(isClickable()))
-//
-//        onView(withId(R.id.progressBar))
-//                .check(matches(not(isDisplayed())))
+            .check(
+                matches(
+                    atPosition(
+                        0,
+                        Matchers.allOf(
+                            hasDescendant(
+                                Matchers.allOf(withId(R.id.repo_name), withText(fakeRepoModel.name))
+                            ),
+                            hasDescendant(
+                                Matchers.allOf(withId(R.id.repo_url), withText(fakeRepoModel.url))
+                            )
+                        )
+                    )
+                )
+            )
     }
-//
-//    @Test
-//    fun type_user_we_rock_star_should_see_WeRockStar_and_repo_url() {
-//        activityRule.launchActivity(null)
-//
-//        typeUserWeRockStar()
-//    }
-//
-//    @Test
-//    fun type_user_we_rock_star_and_click_on_repo_url_should_see_list_of_repo() {
-//        activityRule.launchActivity(null)
-//
-//        typeUserWeRockStar()
-//
-//        onView(withId(R.id.tvRepo)).perform(click())
-//        onView(withId(R.id.smootProgressBar)).check(matches(isDisplayed()))
-//        onView(withId(R.id.rvList)).check(matches(isDisplayed()))
-//    }
-//
-//    @Test
-//    fun user_not_found_should_no_see_username() {
-//        MockResponse().setResponseCode(404)
-//
-//        activityRule.launchActivity(null)
-//
-//        onView(withId(R.id.edtUsername))
-//                .perform(typeText(""))
-//        onView(withId(R.id.btnLoad))
-//                .perform(click())
-//
-//        onView(withId(R.id.tvUsername))
-//                .check(matches(withText("")))
-//        onView(withId(R.id.tvRepo))
-//                .check(matches(withText("")))
-//    }
-//
-//    private fun typeUserWeRockStar() {
-//        val username = "WeRockStar"
-//        val repoUrl = "https://api.github.com/users/WeRockStar/repos"
-//
-//        setUpMockResponse()
-//
-//        onView(withId(R.id.edtUsername))
-//                .perform(typeText(username))
-//        onView(withId(R.id.btnLoad))
-//                .perform(click())
-//        onView(withId(R.id.tvUsername))
-//                .check(matches(withText(username)))
-//        onView(withId(R.id.tvRepo))
-//                .check(matches(withText(repoUrl)))
-//    }
-//
-//    private fun setUpMockResponse() {
-//        server.setDispatcher(object : Dispatcher() {
-//            override fun dispatch(request: RecordedRequest?): MockResponse {
-//                val path = request?.path?.split("/")
-//                val endpoint = path?.last()
-//                return when (endpoint) {
-//                    "repos" -> MockResponse().setBody("repo.json".toJsonString())
-//                    else -> MockResponse()
-//                            .setResponseCode(200)
-//                            .setBody("github_profile.json".toJsonString())
-//                }
-//            }
-//        })
-//    }
-//
-//    @After
-//    fun tearDown() {
-//        server.shutdown()
-//    }
 }
