@@ -5,20 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.stas1270.githubapi.GitHubApp
 import com.stas1270.githubapi.R
 import com.stas1270.githubapi.databinding.FragmentRepoDetailsBinding
 import com.stas1270.githubapi.ui.base.extensions.repeatOnViewLifecycle
 import com.stas1270.githubapi.ui.base.extensions.showErrorToast
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import com.stas1270.githubapi.ui.utils.convertToUiDate
+import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
-class RepoDetailsFragment : Fragment() {
+class RepoDetailsFragment : DaggerFragment() {
 
     private var _binding: FragmentRepoDetailsBinding? = null
 
@@ -30,7 +29,7 @@ class RepoDetailsFragment : Fragment() {
     lateinit var viewModel: RepoDetailViewModel
 
     override fun onAttach(context: Context) {
-        (context.applicationContext as GitHubApp).appComponent.inject(this)
+//        (context.applicationContext as GitHubApp).inject(this)
         super.onAttach(context)
     }
 

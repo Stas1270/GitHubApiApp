@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.stas1270.githubapi">
+
+    <application
+        android:name="com.stas1270.githubapi.TestApplication"
+        tools:replace="android:name"
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.stas1270.githubapi.EmptyMainActivity"
+            android:exported="false" />
+    </application>
+</manifest>

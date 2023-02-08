@@ -1,23 +1,21 @@
 package com.stas1270.githubapi.ui.repolist
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.stas1270.githubapi.GitHubApp
 import com.stas1270.githubapi.databinding.FragmentRepoListBinding
 import com.stas1270.githubapi.ui.base.extensions.hideSoftKeyboard
 import com.stas1270.githubapi.ui.base.extensions.repeatOnViewLifecycle
 import com.stas1270.githubapi.ui.base.extensions.showErrorToast
+import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 
-class RepoListFragment : Fragment() {
+class RepoListFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModel: RepoListViewModel
@@ -30,10 +28,10 @@ class RepoListFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    override fun onAttach(context: Context) {
-        (context.applicationContext as GitHubApp).appComponent.inject(this)
-        super.onAttach(context)
-    }
+//    override fun onAttach(context: Context) {
+//        (context.applicationContext as GitHubApp).appComponent.inject(this)
+//        super.onAttach(context)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

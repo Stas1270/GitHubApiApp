@@ -1,7 +1,5 @@
 package com.stas1270.githubapi.data.reposiory
 
-import com.stas1270.githubapi.data.di.qualifiers.LocalDataSourceQualifier
-import com.stas1270.githubapi.data.di.qualifiers.RemoteDataSourceQualifier
 import com.stas1270.githubapi.data.local.LocalDataSource
 import com.stas1270.githubapi.data.local.model.ResponseData
 import com.stas1270.githubapi.data.local.model.suspendOnSuccess
@@ -13,8 +11,8 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ReposRepositoryImpl @Inject constructor(
-    @RemoteDataSourceQualifier val remote: GitHubDataSource,
-    @LocalDataSourceQualifier val local: LocalDataSource,
+    val remote: GitHubDataSource,
+    val local: LocalDataSource,
 ) : ReposRepository {
 
     override suspend fun getRepos(searchQuery: String): Flow<ResponseData<List<RepoModel>>> {

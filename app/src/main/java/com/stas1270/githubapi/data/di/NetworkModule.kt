@@ -2,10 +2,7 @@ package com.stas1270.githubapi.data.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.stas1270.githubapi.data.di.qualifiers.FakeRemoteDataSourceQualifier
-import com.stas1270.githubapi.data.di.qualifiers.RemoteDataSourceQualifier
 import com.stas1270.githubapi.data.remote.BASE_URL
-import com.stas1270.githubapi.data.remote.FakeGitHubDataSource
 import com.stas1270.githubapi.data.remote.GitHubApi
 import com.stas1270.githubapi.data.remote.GitHubDataSource
 import com.stas1270.githubapi.data.remote.RetrofitGitHubDataSource
@@ -19,10 +16,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+open class NetworkModule {
 
     @Provides
-    fun provideMoshiConverterFactory(): Converter.Factory =
+    open fun provideMoshiConverterFactory(): Converter.Factory =
         MoshiConverterFactory.create(
             Moshi.Builder()
                 .add(KotlinJsonAdapterFactory())
@@ -47,20 +44,12 @@ class NetworkModule {
             .client(client)
             .build()
 
-
     @Provides
     fun provideGitHubApi(retrofit: Retrofit): GitHubApi =
         retrofit.create(GitHubApi::class.java)
 
     @Provides
     @Singleton
-    @RemoteDataSourceQualifier
-    fun provideRetrofitGitHubDataSource(api: GitHubApi): GitHubDataSource =
+    open fun provideRetrofitGitHubDataSource(api: GitHubApi): GitHubDataSource =
         RetrofitGitHubDataSource(api)
-
-    @Singleton
-    @Provides
-    @FakeRemoteDataSourceQualifier
-    fun provideFakeGitHubDataSource(): GitHubDataSource =
-        FakeGitHubDataSource()
 }

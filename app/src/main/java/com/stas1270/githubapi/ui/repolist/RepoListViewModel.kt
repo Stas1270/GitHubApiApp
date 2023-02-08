@@ -31,7 +31,7 @@ class RepoListViewModel @Inject constructor(
     fun search(searchQuery: String) {
         _viewStateIsLoading.value = true
         launch(Dispatchers.IO) {
-            reposRepository.getRepos(searchQuery).collectLatest { result ->
+            reposRepository.getRepos(searchQuery.lowercase().trim()).collectLatest { result ->
                     _viewStateIsLoading.value = false
                     when (result) {
                         is ResponseData.Success -> {

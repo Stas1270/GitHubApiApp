@@ -1,20 +1,26 @@
 package com.stas1270.githubapi
 
-import android.app.Application
 import com.stas1270.githubapi.data.di.AppModule
 import com.stas1270.githubapi.data.di.ApplicationComponent
 import com.stas1270.githubapi.data.di.DaggerApplicationComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class GitHubApp : Application() {
+open class GitHubApp : DaggerApplication() {
 
-    val appComponent: ApplicationComponent by lazy {
-        initializeComponent()
+    //    val appComponent: TestAppComponent by lazy {
+//        initializeComponent()
+//    }
+//
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return initializeComponent()
     }
 
-    private fun initializeComponent(): ApplicationComponent {
-        return DaggerApplicationComponent
-            .builder()
+    open fun initializeComponent(): ApplicationComponent {
+        val component: ApplicationComponent =  DaggerApplicationComponent.builder()
             .appModule(AppModule(this))
             .build()
+        component.inject(this)
+        return component
     }
 }
