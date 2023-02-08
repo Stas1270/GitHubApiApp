@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.stas1270.githubapi.R
@@ -13,11 +14,10 @@ import com.stas1270.githubapi.ui.base.extensions.repeatOnViewLifecycle
 import com.stas1270.githubapi.ui.base.extensions.showErrorToast
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import com.stas1270.githubapi.ui.utils.convertToUiDate
-import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
-class RepoDetailsFragment : DaggerFragment() {
+class RepoDetailsFragment : Fragment() {
 
     private var _binding: FragmentRepoDetailsBinding? = null
 

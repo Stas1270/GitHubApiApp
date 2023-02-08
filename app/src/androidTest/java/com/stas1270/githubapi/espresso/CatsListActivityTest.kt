@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.stas1270.githubapi.R
 import com.stas1270.githubapi.atPosition
+import com.stas1270.githubapi.launchOurFragment
 import com.stas1270.githubapi.scrollToPosition
 import com.stas1270.githubapi.ui.repolist.RepoListFragment
 import org.junit.After
