@@ -60,8 +60,10 @@ class MainActivityIntegrationTest {
                         1,
                         Matchers.allOf(
                             hasDescendant(
-                                Matchers.allOf(withId(R.id.item_repo_name),
-                                    withText("fake name 1"))
+                                Matchers.allOf(
+                                    withId(R.id.item_repo_name),
+                                    withText("fake name 1")
+                                )
                             ),
                             hasDescendant(
                                 Matchers.allOf(
@@ -94,7 +96,7 @@ class MainActivityIntegrationTest {
     }
 
     @Test
-    fun search_new_data() {
+    fun test_search_new_data_and_go_to_details_screen() {
         val searchQuery = "Test Android UI"
         val response = generateRepoList(searchQuery, 3)
         onView(withId(R.id.search_repos))
@@ -128,9 +130,7 @@ class MainActivityIntegrationTest {
                     )
                 )
         }
-        Thread.sleep(1000)
         clickOnItem(2)
-        Thread.sleep(1000)
         checkDetailsScreen(2)
     }
 
