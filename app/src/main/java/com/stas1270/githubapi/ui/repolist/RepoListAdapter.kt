@@ -29,10 +29,10 @@ class RepoListAdapter(
         val repoModel = items[position]
         val language = "Language: ${repoModel.language ?: "Not specified"}"
         with(holder.binding) {
-            repoName.text = repoModel.name
-            repoUrl.text = repoModel.url
-            repoLanguage.text = language
-            avatar.load(repoModel.ownerAvatarUrl)
+            itemRepoName.text = repoModel.name
+            itemRepoUrl.text = repoModel.url
+            itemRepoLanguage.text = language
+            itemAvatar.load(repoModel.ownerAvatarUrl)
             root.setOnClickListener { onRepoModelClick(repoModel) }
         }
     }

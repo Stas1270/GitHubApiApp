@@ -39,7 +39,7 @@ class NavCompTest {
         val position = 0
         Thread.sleep(5000)
 
-        Espresso.onView(withId(R.id.list))
+        Espresso.onView(withId(R.id.repo_list))
             .perform(
                 RecyclerViewActions
                     .actionOnItemAtPosition<RecyclerView.ViewHolder>(

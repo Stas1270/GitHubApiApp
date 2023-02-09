@@ -16,7 +16,6 @@ import com.stas1270.githubapi.data.remote.getFakeRepoModel
 import com.stas1270.githubapi.di.mock.TestMockComponentsRule
 import com.stas1270.githubapi.ui.repolist.RepoListFragment
 import com.stas1270.githubapi.ui.utils.DEFAULT_REQUEST_ON_LAUNCH
-import com.stas1270.githubapi.utils.actionOnItemAtPosition
 import com.stas1270.githubapi.utils.atPosition
 import com.stas1270.githubapi.utils.scrollToPosition
 import io.mockk.coEvery
@@ -24,7 +23,6 @@ import kotlinx.coroutines.flow.flowOf
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -68,7 +66,7 @@ class RepoListFragmentTest {
 
     @Test
     fun launchList() {
-        Espresso.onView(ViewMatchers.withId(R.id.list))
+        Espresso.onView(ViewMatchers.withId(R.id.repo_list))
             .perform(scrollToPosition(1))
             .check(
                 ViewAssertions.matches(
@@ -77,13 +75,13 @@ class RepoListFragmentTest {
                         Matchers.allOf(
                             ViewMatchers.hasDescendant(
                                 Matchers.allOf(
-                                    ViewMatchers.withId(R.id.repo_name),
+                                    ViewMatchers.withId(R.id.item_repo_name),
                                     ViewMatchers.withText("fake name 1")
                                 )
                             ),
                             ViewMatchers.hasDescendant(
                                 Matchers.allOf(
-                                    ViewMatchers.withId(R.id.repo_url),
+                                    ViewMatchers.withId(R.id.item_repo_url),
                                     ViewMatchers.withText("android url.bad 1")
                                 )
                             )
@@ -95,19 +93,6 @@ class RepoListFragmentTest {
             .check(ViewAssertions.matches(CoreMatchers.not(ViewMatchers.isDisplayed())))
     }
 
-    @Test
-    fun click_on_item() {
-        Espresso.onView(ViewMatchers.withId(R.id.list))
-            .perform(actionOnItemAtPosition(1, ViewActions.click()))
-
-        Assert.assertEquals(navController.currentDestination?.id, R.id.repoDetailsFragment)
-
-//        Thread.sleep(5000)
-//        Espresso.onView(ViewMatchers.withId(R.id.repo_name))
-//            .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
-//        Espresso.onView(ViewMatchers.withId(R.id.avatar))
-//            .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
-    }
 
     @Test
     fun search_new_data() {
@@ -120,9 +105,9 @@ class RepoListFragmentTest {
             .perform(ViewActions.typeText(searchQuery))
         Espresso.onView(ViewMatchers.withId(R.id.btn_search))
             .perform(ViewActions.click())
-        Thread.sleep(5000)
 
-        Espresso.onView(ViewMatchers.withId(R.id.list))
+
+        Espresso.onView(ViewMatchers.withId(R.id.repo_list))
             .perform(scrollToPosition(0))
             .check(
                 ViewAssertions.matches(
@@ -131,13 +116,13 @@ class RepoListFragmentTest {
                         Matchers.allOf(
                             ViewMatchers.hasDescendant(
                                 Matchers.allOf(
-                                    ViewMatchers.withId(R.id.repo_name),
+                                    ViewMatchers.withId(R.id.item_repo_name),
                                     ViewMatchers.withText(response.data[0].name)
                                 )
                             ),
                             ViewMatchers.hasDescendant(
                                 Matchers.allOf(
-                                    ViewMatchers.withId(R.id.repo_url),
+                                    ViewMatchers.withId(R.id.item_repo_url),
                                     ViewMatchers.withText(response.data[0].url)
                                 )
                             )

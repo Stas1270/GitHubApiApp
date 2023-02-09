@@ -59,8 +59,8 @@ class RepoDetailsFragment : Fragment() {
 
     private fun showDetails(model: RepoDetailedModel) {
         with(binding) {
-            avatar.load(model.ownerAvatarUrl)
-            repoName.text = model.name
+            detailsAvatar.load(model.ownerAvatarUrl)
+            detailsRepoName.text = model.name
             val createdAt = getString(
                 R.string.created_at, convertToUiDate(
                     requireContext(),
@@ -78,11 +78,11 @@ class RepoDetailsFragment : Fragment() {
             )
             repoUpdatedAt.text = updatedAt
             val url = getString(R.string.see_more_at, model.htmlUrl)
-            repoUrl.text = url
+            detailsRepoUrl.text = url
             val createdBy = getString(R.string.created_by, model.ownerLogin)
             ownerLogin.text = createdBy
             val description = getString(R.string.description, model.description)
-            repoDescription.text = description
+            detailsRepoDescription.text = description
         }
     }
 

@@ -77,12 +77,12 @@ fun RepoDetailsResult.toRepoDetailedModel(): RepoDetailedModel {
     return RepoDetailedModel(
         id = id,
         name = name,
-        createdAt = createdAt,
-        description = description,
-        htmlUrl = htmlUrl,
-        stargazersCount = stargazersCount,
-        updatedAt = updatedAt,
-        ownerAvatarUrl = ownerDetails.avatarUrl,
-        ownerLogin = ownerDetails.login
+        createdAt = createdAt.orEmpty(),
+        description = description.orEmpty(),
+        htmlUrl = htmlUrl.orEmpty(),
+        stargazersCount = stargazersCount ?: 0,
+        updatedAt = updatedAt.orEmpty(),
+        ownerAvatarUrl = ownerDetails?.avatarUrl.orEmpty(),
+        ownerLogin = ownerDetails?.login.orEmpty()
     )
 }

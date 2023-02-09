@@ -26,12 +26,12 @@ data class Owner(
 data class RepoDetailsResult(
     @Json(name = "id") val id: Int,
     @Json(name = "name") val name: String,
-    @Json(name = "created_at") val createdAt: String,
-    @Json(name = "description") val description: String,
-    @Json(name = "html_url") val htmlUrl: String,
-    @Json(name = "owner") val ownerDetails: OwnerDetails,
-    @Json(name = "stargazers_count") val stargazersCount: Int,
-    @Json(name = "updated_at") val updatedAt: String
+    @Json(name = "created_at") val createdAt: String?,
+    @Json(name = "description") val description: String?,
+    @Json(name = "html_url") val htmlUrl: String?,
+    @Json(name = "owner") val ownerDetails: OwnerDetails?,
+    @Json(name = "stargazers_count") val stargazersCount: Int?,
+    @Json(name = "updated_at") val updatedAt: String?
 )
 
 data class OwnerDetails(

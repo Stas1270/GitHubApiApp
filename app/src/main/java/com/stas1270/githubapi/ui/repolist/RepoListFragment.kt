@@ -40,7 +40,7 @@ class RepoListFragment : Fragment() {
     ): View {
         if (_binding == null) {
             _binding = FragmentRepoListBinding.inflate(inflater, container, false)
-            binding.list.adapter = adapter
+            binding.repoList.adapter = adapter
             initialSearch()
             binding.btnSearch.setOnClickListener {
                 hideKeyboard()
