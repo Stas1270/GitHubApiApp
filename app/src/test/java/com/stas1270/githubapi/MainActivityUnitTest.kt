@@ -1,7 +1,5 @@
 package com.stas1270.githubapi
 
-import android.app.Activity
-import android.os.Looper
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -17,6 +15,8 @@ import com.stas1270.githubapi.ui.MainActivity
 import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import com.stas1270.githubapi.ui.utils.DEFAULT_REQUEST_ON_LAUNCH
 import com.stas1270.githubapi.utils.BaseRobolectricTest
+import com.stas1270.githubapi.utils.require
+import com.stas1270.githubapi.utils.requireViewHolderAt
 import io.mockk.coEvery
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flowOf
@@ -29,7 +29,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.Shadows
 import org.robolectric.android.controller.ActivityController
 import org.robolectric.annotation.Config
 
@@ -157,14 +156,4 @@ class MainActivityTest : BaseRobolectricTest() {
             )
         }
     }
-}
-
-fun <T : Activity> ActivityController<T>.require(): T {
-    return get()!!
-}
-
-fun RecyclerView.requireViewHolderAt(position: Int): RecyclerView.ViewHolder {
-    scrollToPosition(position)
-    Shadows.shadowOf(Looper.getMainLooper()).idle()
-    return findViewHolderForAdapterPosition(position)!!
 }

@@ -17,16 +17,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "com.stas1270.githubapi.utils.GithubTestRunner"
-//        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     android {
         sourceSets {
             String sharedTestDir = 'src/sharedTests/java'
             test {
                 java.srcDir sharedTestDir
+                kotlin.srcDir sharedTestDir
             }
             androidTest {
                 java.srcDir sharedTestDir
+                kotlin.srcDir sharedTestDir
             }
         }
     }
@@ -111,15 +112,12 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
-//    androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     // Tests
     testImplementation "org.robolectric:robolectric:4.9"
     testImplementation 'junit:junit:4.13.2'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     debugImplementation "io.mockk:mockk-android:1.13.1"
@@ -129,11 +127,13 @@ dependencies {
     androidTestImplementation "androidx.test:runner:$androidXTestVersion"
     androidTestImplementation "androidx.test:rules:$androidXTestVersion"
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.5.1'
+
+    def espressoVersion = "3.5.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espressoVersion"
 
     // Using Dagger in androidTest and Robolectric too
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
-
+    androidTestImplementation project(path: ':app')
 }

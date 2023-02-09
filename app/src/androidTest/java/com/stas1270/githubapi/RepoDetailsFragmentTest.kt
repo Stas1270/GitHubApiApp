@@ -35,8 +35,8 @@ class RepoDetailsFragmentTest {
     val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
 
     private val id = 123
-    private val response = ResponseData.Success(getFakeRepoDetailedModel(id))
-    private val responseData = response.data
+    private val responseData = getFakeRepoDetailedModel(id)
+    private val response = ResponseData.Success(responseData)
 
     @Before
     fun setUp() {
@@ -63,7 +63,7 @@ class RepoDetailsFragmentTest {
     }
 
     @Test
-    fun launchDetailsScreen() {
+    fun test_launch_details_screen() {
         Espresso.onView(ViewMatchers.withId(R.id.details_repo_name))
             .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
             .check(ViewAssertions.matches(ViewMatchers.withText(responseData.name)))

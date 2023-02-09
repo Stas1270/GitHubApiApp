@@ -51,7 +51,7 @@ class MainActivityIntegrationTest {
     }
 
     @Test
-    fun launchActivity() {
+    fun test_launch_activity() {
         onView(withId(R.id.repo_list))
             .perform(scrollToPosition(1))
             .check(

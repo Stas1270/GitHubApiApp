@@ -39,7 +39,6 @@ class RepoListFragmentTest {
     @get:Rule
     val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
 
-
     @Before
     fun setUp() {
         coEvery {
@@ -95,7 +94,7 @@ class RepoListFragmentTest {
 
 
     @Test
-    fun search_new_data() {
+    fun test_search_new_data() {
         val searchQuery = "Test Android UI"
         val response = ResponseData.Success(listOf(getFakeRepoModel()))
         coEvery { component.mockDataManager.getRepos(searchQuery.lowercase()) } returns

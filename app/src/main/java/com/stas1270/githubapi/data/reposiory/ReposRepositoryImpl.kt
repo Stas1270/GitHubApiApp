@@ -1,6 +1,5 @@
 package com.stas1270.githubapi.data.reposiory
 
-import com.stas1270.githubapi.data.di.OpenClassOnDebug
 import com.stas1270.githubapi.data.local.LocalDataSource
 import com.stas1270.githubapi.data.local.model.ResponseData
 import com.stas1270.githubapi.data.local.model.suspendOnSuccess
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-@OpenClassOnDebug
 class ReposRepositoryImpl @Inject constructor(
     val remote: GitHubDataSource,
     val local: LocalDataSource,

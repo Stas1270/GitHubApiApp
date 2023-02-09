@@ -19,6 +19,7 @@ import com.stas1270.githubapi.ui.repolist.RepoListFragmentDirections
 import com.stas1270.githubapi.ui.utils.DEFAULT_REQUEST_ON_LAUNCH
 import com.stas1270.githubapi.ui.utils.FAKE_MODEL_COUNT
 import com.stas1270.githubapi.utils.BaseRobolectricTest
+import com.stas1270.githubapi.utils.requireViewHolderAt
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.verify
