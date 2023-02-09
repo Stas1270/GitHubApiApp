@@ -67,9 +67,11 @@ class RepoDetailsFragmentTest {
         Espresso.onView(ViewMatchers.withId(R.id.details_repo_name))
             .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
             .check(ViewAssertions.matches(ViewMatchers.withText(responseData.name)))
+
         Espresso.onView(ViewMatchers.withId(R.id.details_repo_description))
             .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
             .check(ViewAssertions.matches(ViewMatchers.withText("Description: ${responseData.description}")))
+
         Espresso.onView(ViewMatchers.withId(R.id.details_repo_url))
             .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
             .check(ViewAssertions.matches(ViewMatchers.withText("See more at: ${responseData.htmlUrl}")))
@@ -77,6 +79,7 @@ class RepoDetailsFragmentTest {
         Espresso.onView(ViewMatchers.withId(R.id.repo_created_at))
             .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
             .check(ViewAssertions.matches(ViewMatchers.withText(startsWith("Created at: "))))
+
         Espresso.onView(ViewMatchers.withId(R.id.repo_updated_at))
             .check(ViewAssertions.matches((ViewMatchers.isDisplayed())))
             .check(ViewAssertions.matches(ViewMatchers.withText(startsWith("Updated at: "))))

@@ -16,6 +16,7 @@ import com.stas1270.githubapi.data.remote.getFakeRepoModel
 import com.stas1270.githubapi.di.mock.TestMockComponentsRule
 import com.stas1270.githubapi.ui.repolist.RepoListFragment
 import com.stas1270.githubapi.ui.utils.DEFAULT_REQUEST_ON_LAUNCH
+import com.stas1270.githubapi.ui.utils.FAKE_MODEL_COUNT
 import com.stas1270.githubapi.utils.atPosition
 import com.stas1270.githubapi.utils.scrollToPosition
 import io.mockk.coEvery
@@ -38,7 +39,6 @@ class RepoListFragmentTest {
     @get:Rule
     val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
 
-    private val response = ResponseData.Success(listOf(getFakeRepoModel()))
 
     @Before
     fun setUp() {
@@ -47,7 +47,7 @@ class RepoListFragmentTest {
         } returns
                 flowOf(
                     ResponseData.Success(
-                        generateRepoList(DEFAULT_REQUEST_ON_LAUNCH.lowercase(), 10)
+                        generateRepoList(DEFAULT_REQUEST_ON_LAUNCH.lowercase(), FAKE_MODEL_COUNT)
                     )
                 )
         navController = TestNavHostController(ApplicationProvider.getApplicationContext())
@@ -97,9 +97,9 @@ class RepoListFragmentTest {
     @Test
     fun search_new_data() {
         val searchQuery = "Test Android UI"
-        coEvery { component.mockDataManager.getRepos(searchQuery.lowercase()) } returns flowOf(
-            response
-        )
+        val response = ResponseData.Success(listOf(getFakeRepoModel()))
+        coEvery { component.mockDataManager.getRepos(searchQuery.lowercase()) } returns
+                flowOf(response)
         Espresso.onView(ViewMatchers.withId(R.id.search_repos))
             .perform(ViewActions.clearText())
             .perform(ViewActions.typeText(searchQuery))

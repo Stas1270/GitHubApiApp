@@ -30,7 +30,7 @@ fun getFakeRepoModel(): RepoModel {
 
 fun generateRepoList(search: String, count: Int): List<RepoModel> {
     val searchQuery = search.lowercase()
-    return (0..count)
+    return (0 until count)
         .map {
             RepoModel(
                 id = it,

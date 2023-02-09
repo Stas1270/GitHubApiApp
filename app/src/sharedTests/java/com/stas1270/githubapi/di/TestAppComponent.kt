@@ -1,6 +1,5 @@
 package com.stas1270.githubapi.di
 
-import com.stas1270.githubapi.MainActivityIntegrationTest
 import com.stas1270.githubapi.data.di.AppModule
 import com.stas1270.githubapi.data.di.ApplicationComponent
 import com.stas1270.githubapi.data.di.RepositoryModule
@@ -15,7 +14,4 @@ import javax.inject.Singleton
         RepositoryModule::class,
         AppModule::class]
 )
-interface TestAppComponent : ApplicationComponent {
-    fun inject(mainActivityTest: MainActivityIntegrationTest)
-
-}
+interface TestAppComponent : ApplicationComponent

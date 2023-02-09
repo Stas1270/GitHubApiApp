@@ -49,6 +49,11 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+            all {
+                testLogging {
+                    events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                }
+            }
         }
     }
     packagingOptions {
@@ -58,7 +63,6 @@ android {
 }
 
 dependencies {
-
     //core
     implementation "androidx.fragment:fragment-ktx:1.5.5"
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -77,13 +81,9 @@ dependencies {
     //DI
     def daggerVersion = "2.44.2"
     implementation "com.google.dagger:dagger:$daggerVersion"
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
-
-    // Using Dagger in androidTest and Robolectric too
-    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
-    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
     def navigationVersion = "2.5.3"
     implementation "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
@@ -111,27 +111,17 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+//    androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     // Tests
     testImplementation "org.robolectric:robolectric:4.9"
-    testImplementation "io.mockk:mockk:1.13.1"
     testImplementation 'junit:junit:4.13.2'
     testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-//    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
-//    kaptAndroidTest "com.google.dagger:dagger- compiler:$daggerVersion"
-
-    def mockito = "3.0.0"
-    implementation "org.mockito:mockito-core:$mockito"
-    implementation "org.mockito:mockito-android:$mockito"
-
-    def mockitoKotlinVersion = '2.2.0'
-    def mockitoInlineVersion = '3.5.13'
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
-    testImplementation "org.mockito:mockito-inline:$mockitoInlineVersion"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     debugImplementation "io.mockk:mockk-android:1.13.1"
     testImplementation 'io.mockk:mockk:1.13.1'
 
@@ -141,4 +131,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.5.1'
+
+    // Using Dagger in androidTest and Robolectric too
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
 }
