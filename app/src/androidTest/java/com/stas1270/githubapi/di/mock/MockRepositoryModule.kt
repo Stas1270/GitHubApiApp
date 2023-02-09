@@ -1,4 +1,4 @@
-package com.stas1270.githubapi.di
+package com.stas1270.githubapi.di.mock
 
 import com.stas1270.githubapi.data.local.LocalDataSource
 import com.stas1270.githubapi.data.remote.GitHubDataSource

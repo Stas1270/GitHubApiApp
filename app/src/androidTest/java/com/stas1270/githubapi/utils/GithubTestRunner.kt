@@ -1,4 +1,4 @@
-package com.stas1270.githubapi
+package com.stas1270.githubapi.utils
 
 import android.app.Application
 import android.content.Context

@@ -65,6 +65,7 @@
                   <entry key="Duration" value="90" />
                   <entry key="Super_Mario" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="agent_007" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
