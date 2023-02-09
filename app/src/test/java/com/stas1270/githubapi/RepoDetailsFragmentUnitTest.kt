@@ -40,8 +40,8 @@ class RepoDetailsFragmentUnitTest : BaseRobolectricTest() {
     val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
 
     private val id = 123
-    private val response = ResponseData.Success(getFakeRepoDetailedModel(id))
-    private val responseData = response.data
+    private val responseData = getFakeRepoDetailedModel(id)
+    private val response = ResponseData.Success(responseData)
 
     @Before
     fun setUp() {

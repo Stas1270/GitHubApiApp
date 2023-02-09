@@ -60,7 +60,8 @@ class MainActivityIntegrationTest {
                         1,
                         Matchers.allOf(
                             hasDescendant(
-                                Matchers.allOf(withId(R.id.item_repo_name), withText("fake name 1"))
+                                Matchers.allOf(withId(R.id.item_repo_name),
+                                    withText("fake name 1"))
                             ),
                             hasDescendant(
                                 Matchers.allOf(
@@ -127,9 +128,9 @@ class MainActivityIntegrationTest {
                     )
                 )
         }
-        Thread.sleep(5000)
+        Thread.sleep(1000)
         clickOnItem(2)
-        Thread.sleep(5000)
+        Thread.sleep(1000)
         checkDetailsScreen(2)
     }
 

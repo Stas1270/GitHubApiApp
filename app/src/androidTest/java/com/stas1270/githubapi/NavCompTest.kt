@@ -37,7 +37,6 @@ class NavCompTest {
     @Test
     fun navigate_to_details_screen() {
         val position = 0
-        Thread.sleep(5000)
 
         Espresso.onView(withId(R.id.repo_list))
             .perform(

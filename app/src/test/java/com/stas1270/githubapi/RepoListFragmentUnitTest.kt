@@ -116,22 +116,23 @@ class RepoListFragmentUnitTest : BaseRobolectricTest() {
 
         assertEquals(countItems, recyclerView.adapter!!.itemCount)
 
-        val firstItemHolder = recyclerView.requireViewHolderAt(0)
-        val firstModel = newResponse[0]
+        newResponse.forEachIndexed { index, repoModel ->
+            val firstItemHolder = recyclerView.requireViewHolderAt(index)
 
-        with(firstItemHolder.itemView) {
-            assertEquals(
-                firstModel.name,
-                findViewById<TextView>(R.id.item_repo_name).text
-            )
-            assertEquals(
-                firstModel.url,
-                findViewById<TextView>(R.id.item_repo_url).text
-            )
-            assertEquals(
-                "Language: ${firstModel.language}",
-                findViewById<TextView>(R.id.item_repo_language).text
-            )
+            with(firstItemHolder.itemView) {
+                assertEquals(
+                    repoModel.name,
+                    findViewById<TextView>(R.id.item_repo_name).text
+                )
+                assertEquals(
+                    repoModel.url,
+                    findViewById<TextView>(R.id.item_repo_url).text
+                )
+                assertEquals(
+                    "Language: ${repoModel.language}",
+                    findViewById<TextView>(R.id.item_repo_language).text
+                )
+            }
         }
     }
 }

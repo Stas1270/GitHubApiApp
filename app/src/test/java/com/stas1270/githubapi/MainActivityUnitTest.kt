@@ -2,20 +2,26 @@ package com.stas1270.githubapi
 
 import android.app.Activity
 import android.os.Looper
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import com.stas1270.githubapi.data.local.model.ResponseData
+import com.stas1270.githubapi.data.remote.generateRepoList
+import com.stas1270.githubapi.data.remote.getFakeRepoDetailedModel
 import com.stas1270.githubapi.data.remote.getFakeRepoModel
 import com.stas1270.githubapi.di.TestApplication
 import com.stas1270.githubapi.di.mock.TestMockComponentsRule
 import com.stas1270.githubapi.ui.MainActivity
+import com.stas1270.githubapi.ui.model.RepoDetailedModel
 import com.stas1270.githubapi.ui.utils.DEFAULT_REQUEST_ON_LAUNCH
 import com.stas1270.githubapi.utils.BaseRobolectricTest
 import io.mockk.coEvery
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.flowOf
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -71,77 +77,90 @@ class MainActivityTest : BaseRobolectricTest() {
         }
     }
 
-//    @Test
-//    fun search_new_data() {
-//        val searchQuery = "Test Android UI"
-//        val response = generateRepoList(searchQuery, 3)
-//        onView(withId(R.id.search_repos))
-//            .perform(ViewActions.clearText())
-//            .perform(ViewActions.typeText(searchQuery))
-//
-//        onView(withId(R.id.btn_search))
-//            .perform(ViewActions.click())
-//        for (i in 0..2) {
-//            onView(withId(R.id.repo_list))
-//                .perform(scrollToPosition(i))
-//                .check(
-//                    matches(
-//                        atPosition(
-//                            i,
-//                            Matchers.allOf(
-//                                hasDescendant(
-//                                    Matchers.allOf(
-//                                        withId(R.id.item_repo_name),
-//                                        withText(response[i].name)
-//                                    )
-//                                ),
-//                                hasDescendant(
-//                                    Matchers.allOf(
-//                                        withId(R.id.item_repo_url),
-//                                        withText(response[i].url)
-//                                    )
-//                                )
-//                            )
-//                        )
-//                    )
-//                )
-//        }
-//        Thread.sleep(5000)
-//        clickOnItem(2)
-//        Thread.sleep(5000)
-//        checkDetailsScreen(2)
-//    }
-//
-//    private fun clickOnItem(id: Int) {
-//        onView(withId(R.id.repo_list))
-//            .perform(actionOnItemAtPosition(id, ViewActions.click()))
-//    }
-//
-//    private fun pressBack() {
-//        onView(isRoot()).perform(ViewActions.pressBack())
-//    }
-//
-//    private fun checkDetailsScreen(id: Int) {
-//        val response = getFakeRepoDetailedModel(id)
-//        onView(withId(R.id.details_repo_name))
-//            .check(matches((isDisplayed())))
-//            .check(matches(withText(response.name)))
-//        onView(withId(R.id.details_repo_description))
-//            .check(matches((isDisplayed())))
-//            .check(matches(withText("Description: ${response.description}")))
-//        onView(withId(R.id.details_repo_url))
-//            .check(matches((isDisplayed())))
-//            .check(matches(withText("See more at: ${response.htmlUrl}")))
-//    }
+    @Test
+    fun test_search_new_data() {
+        val searchQuery = "Test Android UI".lowercase()
+        val countItems = 3
+        val newResponse = generateRepoList(searchQuery, countItems)
+        coEvery { component.mockDataManager.getRepos(searchQuery) } returns
+                flowOf(ResponseData.Success(newResponse))
+        val activity = controller.require()
 
+        val recyclerView = activity.findViewById<RecyclerView>(R.id.repo_list)
+        val searchField = activity.findViewById<EditText>(R.id.search_repos)
+        val searchButton = activity.findViewById<ImageButton>(R.id.btn_search)
+
+        searchField.setText(searchQuery)
+        searchButton.performClick()
+        Robolectric.flushForegroundThreadScheduler()
+
+        assertEquals(countItems, recyclerView.adapter!!.itemCount)
+
+        newResponse.forEachIndexed { index, repoModel ->
+            val firstItemHolder = recyclerView.requireViewHolderAt(index)
+
+            with(firstItemHolder.itemView) {
+                assertEquals(
+                    repoModel.name,
+                    findViewById<TextView>(R.id.item_repo_name).text
+                )
+                assertEquals(
+                    repoModel.url,
+                    findViewById<TextView>(R.id.item_repo_url).text
+                )
+                assertEquals(
+                    "Language: ${repoModel.language}",
+                    findViewById<TextView>(R.id.item_repo_language).text
+                )
+            }
+        }
+
+    }
+
+    @Test
+    fun test_navigate_to_details_screen_and_back() {
+        val id = 123
+        val responseDetailedData = getFakeRepoDetailedModel(id)
+        coEvery {
+            component.mockDataManager.getRepositoryDetails(responseData.id)
+        } returns flowOf(ResponseData.Success(responseDetailedData))
+
+        val activity = controller.require()
+        val recyclerView = activity.findViewById<RecyclerView>(R.id.repo_list)
+        recyclerView.requireViewHolderAt(0).itemView.performClick()
+        Robolectric.flushForegroundThreadScheduler()
+        checkDetailsScreen(responseDetailedData)
+    }
+
+    private fun checkDetailsScreen(responseData: RepoDetailedModel) {
+        val activity = controller.require()
+        with(activity) {
+            assertEquals(
+                responseData.name,
+                findViewById<TextView>(R.id.details_repo_name).text
+            )
+            assertEquals(
+                "Description: ${responseData.description}",
+                findViewById<TextView>(R.id.details_repo_description).text
+            )
+            assertEquals(
+                "See more at: ${responseData.htmlUrl}",
+                findViewById<TextView>(R.id.details_repo_url).text
+            )
+            MatcherAssert.assertThat(
+                findViewById<TextView>(R.id.repo_created_at).text.toString(),
+                CoreMatchers.startsWith("Created at: ")
+            )
+            MatcherAssert.assertThat(
+                findViewById<TextView>(R.id.repo_updated_at).text.toString(),
+                CoreMatchers.startsWith("Updated at: ")
+            )
+        }
+    }
 }
 
 fun <T : Activity> ActivityController<T>.require(): T {
     return get()!!
-}
-
-fun <T : Activity> ActivityScenario<T>.with(block: T.() -> Unit) {
-    onActivity(block)
 }
 
 fun RecyclerView.requireViewHolderAt(position: Int): RecyclerView.ViewHolder {
