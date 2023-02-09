@@ -10,7 +10,7 @@ import javax.inject.Inject
 class FakeLocalDataSource @Inject constructor() : LocalDataSource {
 
     override suspend fun getRepos(search: String): List<RepoModel> {
-        return generateRepoList(FAKE_MODEL_COUNT)
+        return generateRepoList(search, FAKE_MODEL_COUNT)
     }
 
     override suspend fun insertRepos(search: String, list: List<RepoModel>) {

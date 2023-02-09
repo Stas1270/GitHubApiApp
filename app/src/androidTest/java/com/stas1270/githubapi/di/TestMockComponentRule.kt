@@ -15,14 +15,14 @@ import org.junit.runners.model.Statement
  * It also exposes some of the dependencies so they can be easily accessed from the tests, e.g. to
  * stub mocks etc.
  */
-class TestComponentRule(val context: Context) : TestRule {
+class TestMockComponentRule(val context: Context) : TestRule {
 
-    val testComponent: TestAppComponent
+    val testComponent: TestMockAppComponent
 
     init {
         val instrument = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
         val application = instrument.targetContext.applicationContext as GitHubApp
-        testComponent = DaggerTestAppComponent.builder()
+        testComponent = DaggerTestMockAppComponent.builder()
                 .appModule(AppModule(application))
                 .build()
     }
@@ -36,7 +36,7 @@ class TestComponentRule(val context: Context) : TestRule {
             override fun evaluate() {
                 val instrument = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
                 val application = instrument.targetContext.applicationContext as GitHubApp
-//                application.appComponent = testComponent
+                application.appComponent = testComponent
                 base.evaluate()
             }
         }

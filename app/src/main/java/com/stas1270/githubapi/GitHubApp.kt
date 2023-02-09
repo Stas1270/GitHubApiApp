@@ -7,8 +7,11 @@ import com.stas1270.githubapi.data.di.DaggerApplicationComponent
 
 open class GitHubApp : Application() {
 
-    val appComponent: ApplicationComponent by lazy {
-        initializeComponent()
+    lateinit var appComponent: ApplicationComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        appComponent = initializeComponent()
     }
 
     open fun initializeComponent(): ApplicationComponent {

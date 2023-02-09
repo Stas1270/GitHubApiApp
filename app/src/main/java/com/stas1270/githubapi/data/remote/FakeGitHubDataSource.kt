@@ -7,7 +7,7 @@ import com.stas1270.githubapi.ui.utils.FAKE_MODEL_COUNT
 
 class FakeGitHubDataSource : GitHubDataSource {
     override suspend fun getRepos(search: String): ResponseData<List<RepoModel>> {
-        return ResponseData.Success(generateRepoList(FAKE_MODEL_COUNT))
+        return ResponseData.Success(generateRepoList(search, FAKE_MODEL_COUNT))
     }
 
     override suspend fun getRepositoryDetails(id: Int): ResponseData<RepoDetailedModel?> {
@@ -28,16 +28,16 @@ fun getFakeRepoModel(): RepoModel {
     )
 }
 
-fun generateRepoList(count: Int): List<RepoModel> {
+fun generateRepoList(search: String, count: Int): List<RepoModel> {
+    val searchQuery = search.lowercase()
     return (0..count)
-//        .asSequence()
         .map {
             RepoModel(
                 id = it,
                 name = "fake name $it",
-                fullName = "fullName $it",
-                url = "url.bad $it",
-                language = "Kotlin $it",
+                fullName = "$searchQuery fullName $it",
+                url = "$searchQuery url.bad $it",
+                language = "$searchQuery $it",
                 ownerUrl = "owner.url.bad",
                 ownerAvatarUrl = "owner.avatar.url.bad",
                 ownerLogin = "owner login"
