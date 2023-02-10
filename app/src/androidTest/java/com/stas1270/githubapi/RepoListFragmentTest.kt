@@ -36,6 +36,7 @@ class RepoListFragmentTest {
     private lateinit var navController: TestNavHostController
     private lateinit var scenario: FragmentScenario<RepoListFragment>
 
+    //studio issue https://issuetracker.google.com/issues/232007221
     @get:Rule
     val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
 
