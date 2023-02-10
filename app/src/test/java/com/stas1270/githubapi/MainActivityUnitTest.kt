@@ -4,7 +4,6 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ApplicationProvider
 import com.stas1270.githubapi.data.local.model.ResponseData
 import com.stas1270.githubapi.data.remote.generateRepoList
 import com.stas1270.githubapi.data.remote.getFakeRepoDetailedModel
@@ -37,7 +36,7 @@ import org.robolectric.annotation.Config
 class MainActivityTest : BaseRobolectricTest() {
 
     @get:Rule
-    val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
+    val component = TestMockComponentsRule()
 
     private val responseData = getFakeRepoModel()
     private val response = ResponseData.Success(listOf(responseData))

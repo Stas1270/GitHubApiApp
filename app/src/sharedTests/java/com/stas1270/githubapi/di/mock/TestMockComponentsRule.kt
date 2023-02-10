@@ -1,6 +1,5 @@
 package com.stas1270.githubapi.di.mock
 
-import android.content.Context
 import com.stas1270.githubapi.GitHubApp
 import com.stas1270.githubapi.data.di.AppModule
 import com.stas1270.githubapi.data.reposiory.ReposRepository
@@ -8,7 +7,7 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
-class TestMockComponentsRule(val context: Context) : TestRule {
+class TestMockComponentsRule : TestRule {
 
     val testComponent: TestMockAppComponent
 

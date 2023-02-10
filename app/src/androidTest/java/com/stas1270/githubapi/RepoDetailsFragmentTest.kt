@@ -32,7 +32,7 @@ class RepoDetailsFragmentTest {
 
     //studio issue https://issuetracker.google.com/issues/232007221
     @get:Rule
-    val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
+    val component = TestMockComponentsRule()
 
     private val id = 123
     private val responseData = getFakeRepoDetailedModel(id)

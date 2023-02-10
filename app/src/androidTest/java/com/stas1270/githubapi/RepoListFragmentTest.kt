@@ -38,7 +38,7 @@ class RepoListFragmentTest {
 
     //studio issue https://issuetracker.google.com/issues/232007221
     @get:Rule
-    val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
+    val component = TestMockComponentsRule()
 
     @Before
     fun setUp() {

@@ -9,7 +9,6 @@ import androidx.fragment.app.testing.withFragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.core.app.ApplicationProvider
 import com.stas1270.githubapi.data.local.model.ResponseData
 import com.stas1270.githubapi.data.remote.generateRepoList
 import com.stas1270.githubapi.di.TestApplication
@@ -39,7 +38,7 @@ import org.robolectric.annotation.Config
 class RepoListFragmentUnitTest : BaseRobolectricTest() {
 
     @get:Rule
-    val component = TestMockComponentsRule(ApplicationProvider.getApplicationContext())
+    val component = TestMockComponentsRule()
 
     private val response = generateRepoList(DEFAULT_REQUEST_ON_LAUNCH.lowercase(), FAKE_MODEL_COUNT)
     private val navController = mockk<NavController>(relaxed = true)
